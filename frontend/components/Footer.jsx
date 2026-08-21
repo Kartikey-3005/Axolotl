@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <div className="w-4 h-4 bg-ocean-mauve rounded-none"></div>
-            <span className="font-bold text-ocean-light text-base tracking-wider">AEGIS-RAIL DISPATCH</span>
+            <span className="font-bold text-ocean-light text-base tracking-wider">AXOLOTL DISPATCH</span>
           </div>
           <p className="text-ocean-soft text-xs leading-relaxed">
             High-performance real-time railway conflict prediction & dispatch engine. Exclusively for authorized railway operations officials.
@@ -46,7 +46,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto border-t border-ocean-dark/40 mt-8 pt-4 flex flex-col md:flex-row justify-between items-center text-[11px] text-ocean-soft">
-        <span>© 2026 AEGIS-RAIL DISPATCH SYSTEMS. STRICTLY CONFIDENTIAL.</span>
+        <span>© 2026 AXOLOTL DISPATCH SYSTEMS. STRICTLY CONFIDENTIAL.</span>
 
       </div>
     </footer>

@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export const metadata = {
-  title: 'Aegis-Rail | Infrastructure & Transit Simulation',
+  title: 'Axolotl | Infrastructure & Transit Simulation',
   description: 'Enterprise-grade rail transit simulation, bottleneck prediction, and rerouting control center.',
 };
 

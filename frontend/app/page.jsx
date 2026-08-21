@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function AegisCommandCenter() {
+export default function AxolotlCommandCenter() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000/ws/stream";
 

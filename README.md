@@ -1,4 +1,4 @@
-# 🛡️ AEGIS-RAIL: AI-Powered Real-Time Railway Conflict Prediction & Dispatch Engine
+# 🦎 Axolotl: AI-Powered Real-Time Railway Conflict Prediction & Dispatch Engine
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16.3+-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
@@ -6,7 +6,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4+-38B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
 
-**Aegis-Rail** is a mission-critical, real-time railway traffic dispatch and conflict resolution platform. Designed for modern railway networks, it combines high-fidelity train kinematics simulation with Google OR-Tools constraint satisfaction algorithms to predict track contention, optimize throughput, preserve network momentum, and provide dispatch controllers with explainable, actionable decision intelligence.
+**Axolotl** is a mission-critical, real-time railway traffic dispatch and conflict resolution platform. Designed for modern railway networks, it combines high-fidelity train kinematics simulation with Google OR-Tools constraint satisfaction algorithms to predict track contention, optimize throughput, preserve network momentum, and provide dispatch controllers with explainable, actionable decision intelligence.
 
 ---
 
@@ -97,7 +97,7 @@ Uses Google OR-Tools CP-SAT solver:
 ## 📂 Project Structure
 
 ```text
-aegis-rail/
+axolotl/
 ├── backend/
 │   ├── ai_engine/
 │   │   ├── kinematics.py         # Physics & stopping distance calculations
@@ -117,7 +117,7 @@ aegis-rail/
 │
 ├── frontend/
 │   ├── app/
-│   │   ├── page.jsx              # Main Aegis Command Center (Overview)
+│   │   ├── page.jsx              # Main Axolotl Command Center (Overview)
 │   │   ├── dashboard/            # Main Network Map
 │   │   ├── stations/             # Station manifests and Gantt timeline
 │   │   ├── alerts/               # Issue management & manual alert console
@@ -186,7 +186,7 @@ npm install
 # Start the Next.js development server
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the Aegis-Rail Command Center.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the Axolotl Command Center.
 
 ---
 

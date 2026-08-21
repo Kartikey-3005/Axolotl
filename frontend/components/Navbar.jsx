@@ -23,7 +23,7 @@ export default function Navbar() {
           </div>
           <div>
             <span className="font-extrabold text-lg tracking-wider text-ocean-light group-hover:text-ocean-peach transition-colors">
-              AEGIS-RAIL
+              AXOLOTL
             </span>
             
           </div>
