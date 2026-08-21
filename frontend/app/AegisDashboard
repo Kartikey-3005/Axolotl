@@ -1,0 +1,20 @@
+// 1. Add these state variables near the top of your component
+const [currentScenarioId, setCurrentScenarioId] = useState(1);
+const [scenarioData, setScenarioData] = useState(null);
+
+// 2. Add this hook to fetch new data whenever the ID changes
+useEffect(() => {
+  const fetchScenario = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/v1/scenario/${currentScenarioId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setScenarioData(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch historical data:", error);
+    }
+  };
+
+  fetchScenario();
+}, [currentScenarioId]);
