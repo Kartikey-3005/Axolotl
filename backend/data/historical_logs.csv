@@ -1,0 +1,6 @@
+scenario_id,train_1_id,train_1_type,train_1_weight,train_1_speed,train_2_id,train_2_type,train_2_weight,train_2_speed,location,delay_risk
+1,FR-402,Freight,3500,75,EX-110,Express,1200,110,Itarsi Junction,High
+2,EX-304,Express,1400,120,SU-992,Local,800,0,Bhopal Outer,Critical
+3,FR-881,Heavy_Freight,5000,60,FR-220,Freight,2000,55,Ghat Section,Medium
+4,RAJ-201,High_Speed,2500,130,SUB-441,Commuter,1200,0,Mathura Junction,Critical
+5,COAL-99,Heavy_Freight,5000,50,STEEL-12,Freight,2200,45,Korba Corridor,High
