@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { useWebSocketTelemetry } from '../../hooks/useWebSocketTelemetry';
 import BorderGlow from '../../components/BorderGlow';
 
@@ -20,93 +21,110 @@ export default function DashboardPage() {
   const criticalCount = activeTrains.filter(t => t.status === "CRITICAL").length;
 
   return (
-    <div className="w-full bg-ocean-bg min-h-screen p-4 md:p-6 font-mono space-y-6">
+    <div className="w-full bg-[#050505] min-h-screen p-4 md:p-6 font-mono space-y-6">
 
       {/* Top Header & Status */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-ocean-border bg-ocean-surface p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 glass-panel hud-corner p-5 border-cyan/30 shadow-[0_15px_35px_rgba(0,0,0,0.8)]"
+      >
         <div>
-          <h1 className="text-xl md:text-2xl font-bold uppercase text-ocean-light tracking-wider flex items-center gap-3">
-            <span className="w-3 h-3 bg-ocean-mauve inline-block"></span>
-            Main Network Map
+          <h1 className="text-xl md:text-2xl font-black uppercase text-white tracking-widest flex items-center gap-3 drop-shadow-[0_0_12px_rgba(0,240,255,0.4)]">
+            <span className="w-3 h-3 bg-cyan inline-block shadow-[0_0_10px_#00F0FF] animate-pulse"></span>
+            Main Network Map // Spatial Radar
           </h1>
-          <p className="text-ocean-soft text-xs mt-1 flex flex-wrap items-center gap-2">
-            <span>REAL-TIME SPATIAL POSITIONING & NETWORK HEALTH</span>
-            <span className="text-ocean-peach font-bold bg-ocean-peach/10 px-2 py-0.5 border border-ocean-peach/30 text-[10px]">
-              FOR TRAIN DETAILS, CLICK ON THE STATIONS
+          <p className="text-[#9FA8BF] text-xs mt-1.5 flex flex-wrap items-center gap-2">
+            <span>REAL-TIME SPATIAL POSITIONING & MAGLEV TELEMETRY</span>
+            <span className="text-cyan font-bold bg-cyan/10 px-2 py-0.5 border border-cyan/30 text-[10px] shadow-[0_0_8px_rgba(0,240,255,0.2)]">
+              FOR TRAIN DETAILS, CLICK ON THE NODES
             </span>
           </p>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="border border-ocean-border bg-ocean-bg px-3 py-1.5 text-xs flex items-center gap-2">
-            <span className={`w-2 h-2 ${isConnected ? 'bg-ocean-peach' : 'bg-ocean-mauve animate-pulse'}`}></span>
-            <span className="text-ocean-soft">STREAM:</span>
-            <span className={isConnected ? 'text-ocean-peach font-bold' : 'text-ocean-mauve font-bold'}>
+          <div className="border border-cyan/30 bg-[#050811] px-3.5 py-1.5 text-xs flex items-center gap-2 shadow-[0_0_12px_rgba(0,240,255,0.15)]">
+            <span className={`w-2.5 h-2.5 rounded-full ${isConnected ? 'bg-cyan shadow-[0_0_8px_#00F0FF]' : 'bg-crimson shadow-[0_0_8px_#FF3366] animate-pulse'}`}></span>
+            <span className="text-[#9FA8BF]">STREAM:</span>
+            <span className={isConnected ? 'text-cyan font-black' : 'text-crimson font-black'}>
               {isConnected ? 'LIVE WEBSOCKET' : 'FALLBACK SIM'}
             </span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* KPI Cards Row with BorderGlow */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <BorderGlow
-          backgroundColor="#1E2230"
-          borderRadius={8}
-          glowColor="280 70 65"
-          colors={['#b48599', '#e0b0c4', '#8a5068']}
-          glowRadius={30}
-          glowIntensity={1.2}
-          edgeSensitivity={40}
-        >
-          <div className="p-4 border-l-4 border-l-ocean-mauve">
-            <span className="text-ocean-soft text-xs block">Active Trains or Running Trains</span>
-            <div className="text-3xl font-extrabold text-ocean-light mt-1">{totalActive}</div>
-            <span className="text-[10px] text-ocean-peach mt-2 block">TRACK SECTORS FULLY MONITORED</span>
-          </div>
-        </BorderGlow>
+      {/* KPI Cards Row with Floating Levitation & BorderGlow */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}>
+          <BorderGlow
+            backgroundColor="#0A0D14"
+            borderRadius={0}
+            glowColor="185 100 50"
+            colors={['#00F0FF', '#0099FF', '#00F0FF']}
+            glowRadius={30}
+            glowIntensity={1.3}
+            edgeSensitivity={40}
+          >
+            <div className="p-5 border-l-4 border-l-cyan glass-panel border-cyan/20">
+              <span className="text-[#9FA8BF] text-xs block font-bold tracking-wider">ACTIVE MAGLEV UNITS</span>
+              <div className="text-4xl font-black text-cyan mt-1 drop-shadow-[0_0_10px_rgba(0,240,255,0.4)]">{totalActive}</div>
+              <span className="text-[10px] text-cyan/90 mt-2 block tracking-widest uppercase">TRACK SECTORS FULLY MONITORED</span>
+            </div>
+          </BorderGlow>
+        </motion.div>
 
-        <BorderGlow
-          backgroundColor="#1E2230"
-          borderRadius={8}
-          glowColor="25 85 65"
-          colors={['#e08e79', '#f2b8a0', '#c2644e']}
-          glowRadius={30}
-          glowIntensity={1.2}
-          edgeSensitivity={40}
-        >
-          <div className="p-4 border-l-4 border-l-ocean-peach">
-            <span className="text-ocean-soft text-xs block">DELAYED TRAINS</span>
-            <div className="text-3xl font-extrabold text-ocean-peach mt-1">{delayedCount}</div>
-            <span className="text-[10px] text-ocean-soft mt-2 block">Delay Time or Minutes Late &gt; +10 MINS</span>
-          </div>
-        </BorderGlow>
+        <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}>
+          <BorderGlow
+            backgroundColor="#0A0D14"
+            borderRadius={0}
+            glowColor="35 100 50"
+            colors={['#FFAA00', '#FF8800', '#FFCC00']}
+            glowRadius={30}
+            glowIntensity={1.2}
+            edgeSensitivity={40}
+          >
+            <div className="p-5 border-l-4 border-l-amber-500 glass-panel border-amber-500/20">
+              <span className="text-[#9FA8BF] text-xs block font-bold tracking-wider">DELAYED UNITS</span>
+              <div className="text-4xl font-black text-amber-400 mt-1 drop-shadow-[0_0_10px_rgba(251,191,36,0.4)]">{delayedCount}</div>
+              <span className="text-[10px] text-amber-300 mt-2 block tracking-widest uppercase">DRIFT &gt; +10 MINS</span>
+            </div>
+          </BorderGlow>
+        </motion.div>
 
-        <BorderGlow
-          backgroundColor="#1E2230"
-          borderRadius={8}
-          glowColor="340 80 60"
-          colors={['#f472b6', '#b48599', '#ef4444']}
-          glowRadius={30}
-          glowIntensity={1.2}
-          edgeSensitivity={40}
-        >
-          <div className="p-4 border-l-4 border-l-ocean-light">
-            <span className="text-ocean-soft text-xs block">CRITICAL ALERTS / OVERRIDES</span>
-            <div className="text-3xl font-extrabold text-ocean-mauve mt-1">{criticalCount}</div>
-            <span className="text-[10px] text-ocean-mauve mt-2 block">IMMEDIATE DISPATCH ATTENTION REQ.</span>
-          </div>
-        </BorderGlow>
+        <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}>
+          <BorderGlow
+            backgroundColor="#0A0D14"
+            borderRadius={0}
+            glowColor="345 100 60"
+            colors={['#FF3366', '#FF0055', '#FF3366']}
+            glowRadius={30}
+            glowIntensity={1.4}
+            edgeSensitivity={40}
+          >
+            <div className="p-5 border-l-4 border-l-crimson glass-panel-crimson">
+              <span className="text-[#9FA8BF] text-xs block font-bold tracking-wider">CRITICAL ALERTS / OVERRIDES</span>
+              <div className="text-4xl font-black text-crimson mt-1 drop-shadow-[0_0_12px_rgba(255,51,102,0.6)] animate-pulse">{criticalCount}</div>
+              <span className="text-[10px] text-crimson mt-2 block tracking-widest uppercase">IMMEDIATE DISPATCH ATTENTION REQ.</span>
+            </div>
+          </BorderGlow>
+        </motion.div>
       </div>
 
       {/* Main Grid: Interactive Map & Live Feed Panel */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         {/* Interactive Tactical Map Container (2 Cols) */}
-        <div className="lg:col-span-2 border border-ocean-border bg-ocean-surface p-4 relative min-h-[450px] flex flex-col justify-between grid-bg">
-          <div className="flex justify-between items-center border-b border-ocean-border pb-2">
-            <span className="text-ocean-peach font-bold text-xs uppercase tracking-wider">Live Train Map</span>
-            <span className="text-ocean-soft text-[10px]">GRID_SCALE: 1:50000</span>
+        <motion.div
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="lg:col-span-2 glass-panel hud-corner border-cyan/30 p-5 relative min-h-[480px] flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+        >
+          <div className="flex justify-between items-center border-b border-cyan/20 pb-3">
+            <span className="text-cyan font-black text-xs uppercase tracking-widest flex items-center gap-2 drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">
+              <span className="w-2 h-2 bg-cyan"></span>
+              Live Tactical Maglev Grid
+            </span>
+            <span className="text-[#9FA8BF] text-[10px] tracking-widest">RADAR_GRID: 1:50000 // LEVITATION ON</span>
           </div>
 
           {/* Interactive Map Visual Simulation Nodes */}
@@ -133,20 +151,31 @@ export default function DashboardPage() {
                   style={{ left: `${xPos}%`, top: `${yPos}%` }}
                   className="absolute transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
                 >
-                  <div className={`relative p-2 border bg-ocean-bg transition-transform group-hover:scale-110 ${isCritical ? 'border-ocean-mauve bg-ocean-mauve/20' : isDelayed ? 'border-ocean-peach bg-ocean-peach/20' : 'border-ocean-mauve bg-ocean-surface'
-                    }`}>
+                  <div className={`relative p-2.5 border transition-transform group-hover:scale-125 ${
+                    isCritical
+                      ? 'border-crimson bg-crimson/25 shadow-[0_0_15px_rgba(255,51,102,0.8)]'
+                      : isDelayed
+                      ? 'border-amber-400 bg-amber-400/20 shadow-[0_0_10px_rgba(251,191,36,0.5)]'
+                      : 'border-cyan bg-cyan/15 shadow-[0_0_15px_rgba(0,240,255,0.4)]'
+                  }`}>
                     {/* Pulsing indicator */}
-                    <div className={`w-3 h-3 ${isCritical ? 'bg-ocean-mauve animate-ping' : isDelayed ? 'bg-ocean-peach' : 'bg-ocean-mauve'}`} />
+                    <div className={`w-3.5 h-3.5 ${
+                      isCritical
+                        ? 'bg-crimson animate-ping'
+                        : isDelayed
+                        ? 'bg-amber-400'
+                        : 'bg-cyan animate-pulse'
+                    }`} />
 
                     {/* Tooltip on Hover */}
-                    <div className="absolute left-6 top-0 hidden group-hover:block bg-ocean-surface border border-ocean-mauve p-2 z-30 whitespace-nowrap text-xs shadow-lg">
-                      <div className="text-ocean-light font-bold">{train.train_id}</div>
-                      <div className="text-ocean-peach">SPEED: {train.current_speed} km/h</div>
-                      <div className="text-ocean-soft">WEIGHT: {train.current_weight} t</div>
-                      <div className="text-ocean-mauve text-[10px] underline mt-1">CLICK FOR TELEMETRY DASHBOARD →</div>
+                    <div className="absolute left-7 top-0 hidden group-hover:block bg-[#050811] border border-cyan p-2.5 z-30 whitespace-nowrap text-xs shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+                      <div className="text-white font-black tracking-widest">{train.train_id}</div>
+                      <div className="text-cyan font-bold mt-0.5">VELOCITY: {train.current_speed} km/h</div>
+                      <div className="text-[#9FA8BF]">PAYLOAD: {train.current_weight} t</div>
+                      <div className="text-cyan text-[10px] underline mt-1.5 font-bold">CLICK FOR TELEMETRY DASHBOARD →</div>
                     </div>
                   </div>
-                  <span className="text-[10px] text-ocean-light font-bold block text-center mt-1 bg-ocean-bg/90 px-1 border border-ocean-border">
+                  <span className="text-[10px] text-white font-bold block text-center mt-1 bg-[#050505]/95 px-1.5 py-0.5 border border-cyan/30 shadow-md">
                     {train.train_id}
                   </span>
                 </Link>
@@ -154,55 +183,66 @@ export default function DashboardPage() {
             })}
           </div>
 
-          <div className="flex justify-between items-center text-[10px] text-ocean-soft border-t border-ocean-border pt-2">
+          <div className="flex justify-between items-center text-[10px] text-[#9FA8BF] border-t border-cyan/20 pt-3">
             <span>CLICK NODE TO VIEW DETAILED TELEMETRY</span>
-            <span className="text-ocean-peach font-bold">LIVE WEBSOCKET UPDATES ACTIVE</span>
+            <span className="text-cyan font-bold">LIVE WEBSOCKET STREAM ACTIVE</span>
           </div>
-        </div>
+        </motion.div>
 
         {/* Active Trains List Panel (1 Col) */}
-        <div className="border border-ocean-border bg-ocean-surface p-4 space-y-4">
-          <h3 className="text-ocean-peach font-bold text-xs uppercase tracking-wider border-b border-ocean-border pb-2">
-            Active Trains List
-          </h3>
+        <motion.div
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+          className="glass-panel hud-corner border-cyan/30 p-5 space-y-4 shadow-[0_20px_45px_rgba(0,0,0,0.8)]"
+        >
+          <div className="border-b border-cyan/20 pb-3 flex justify-between items-center">
+            <h3 className="text-cyan font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+              <span className="w-2 h-2 bg-cyan"></span>
+              Active Maglev Fleet
+            </h3>
+            <span className="text-[9px] text-[#9FA8BF] px-1.5 py-0.5 border border-cyan/30 bg-cyan/10">TELEMETRY</span>
+          </div>
 
-          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
+          <div className="space-y-3.5 max-h-[440px] overflow-y-auto pr-1">
             {activeTrains.map((train) => (
-              <div key={train.train_id} className="border border-ocean-border bg-ocean-bg p-3 hover:border-ocean-mauve transition-colors">
+              <div key={train.train_id} className="border border-[#1E2538] bg-[#050811]/80 p-3.5 hover:border-cyan transition-all shadow-sm group">
                 <div className="flex justify-between items-start">
                   <div>
-                    <span className="text-ocean-light font-bold text-sm">{train.train_id}</span>
-                    <span className="text-[10px] text-ocean-soft block">POS: {train.latitude}, {train.longitude}</span>
+                    <span className="text-white font-black text-sm group-hover:text-cyan transition-colors">{train.train_id}</span>
+                    <span className="text-[10px] text-[#9FA8BF] block mt-0.5">GEO: {train.latitude}, {train.longitude}</span>
                   </div>
-                  <span className={`px-2 py-0.5 text-[10px] font-bold border ${train.status === 'CRITICAL' ? 'border-ocean-mauve bg-ocean-mauve/20 text-ocean-mauve' :
-                    train.status === 'DELAYED' ? 'border-ocean-peach bg-ocean-peach/20 text-ocean-peach' :
-                      'border-ocean-soft bg-ocean-surface text-ocean-light'
-                    }`}>
+                  <span className={`px-2 py-0.5 text-[10px] font-bold border ${
+                    train.status === 'CRITICAL'
+                      ? 'border-crimson bg-crimson/20 text-crimson animate-pulse'
+                      : train.status === 'DELAYED'
+                      ? 'border-amber-400 bg-amber-400/20 text-amber-300'
+                      : 'border-cyan/40 bg-cyan/10 text-cyan'
+                  }`}>
                     {train.status}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 mt-3 text-xs border-t border-ocean-border pt-2">
+                <div className="grid grid-cols-2 gap-2 mt-3 text-xs border-t border-[#1E2538] pt-2">
                   <div>
-                    <span className="text-ocean-soft text-[10px] block">SPEED</span>
-                    <span className="text-ocean-peach font-bold">{train.current_speed} km/h</span>
+                    <span className="text-[#9FA8BF] text-[10px] block">VELOCITY</span>
+                    <span className="text-cyan font-bold">{train.current_speed} km/h</span>
                   </div>
                   <div>
-                    <span className="text-ocean-soft text-[10px] block">Train Weight or Total Load</span>
-                    <span className="text-ocean-light font-bold">{train.current_weight} t</span>
+                    <span className="text-[#9FA8BF] text-[10px] block">PAYLOAD MASS</span>
+                    <span className="text-white font-bold">{train.current_weight} t</span>
                   </div>
                 </div>
 
                 <Link
                   href={`/trains/${train.train_id}`}
-                  className="mt-3 block w-full text-center bg-ocean-surface hover:bg-ocean-mauve hover:text-ocean-bg border border-ocean-border text-ocean-light text-xs py-1.5 transition-colors font-bold uppercase"
+                  className="mt-3 block w-full text-center bg-[#0E131F] hover:bg-cyan hover:text-black border border-cyan/30 text-white text-xs py-2 transition-all font-bold uppercase tracking-wider shadow-sm hover:shadow-[0_0_15px_rgba(0,240,255,0.4)]"
                 >
-                  View Train Details or Live Stats →
+                  View Train Telemetry & Stats →
                 </Link>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>
