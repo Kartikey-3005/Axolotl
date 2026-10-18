@@ -5,6 +5,10 @@ import Footer from '../components/Footer';
 export const metadata = {
   title: 'Axolotl | Infrastructure & Transit Simulation',
   description: 'Enterprise-grade rail transit simulation, bottleneck prediction, and rerouting control center.',
+  icons: {
+    icon: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
 };
 
 export default function RootLayout({ children }) {
