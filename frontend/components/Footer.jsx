@@ -6,7 +6,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-2.5 mb-3">
-            <div className="w-3.5 h-3.5 bg-cyan shadow-[0_0_8px_#00F0FF]"></div>
+            <div className="w-5 h-5 border border-cyan/60 overflow-hidden shadow-[0_0_8px_#00F0FF] flex items-center justify-center">
+              <img src="/logo.jpg" alt="Axolotl Logo" className="w-full h-full object-cover" />
+            </div>
             <span className="font-bold text-white text-base tracking-widest">AXOLOTL MAGLEV</span>
           </div>
           <p className="text-[#9FA8BF] text-xs leading-relaxed">
