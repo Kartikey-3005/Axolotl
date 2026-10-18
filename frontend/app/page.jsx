@@ -235,7 +235,7 @@ export default function AxolotlCommandCenter() {
                 onClick={() => handleApprove("Instant Conflict Override")}
                 className="whitespace-nowrap px-4 py-2 bg-crimson hover:bg-white text-black font-black tracking-widest text-xs uppercase transition-all shadow-[0_0_20px_rgba(255,51,102,0.8)] hover:scale-105 active:scale-95"
               >
-                ⚡ EXECUTE REROUTE
+                EXECUTE REROUTE
               </button>
             </div>
           </motion.div>
@@ -263,7 +263,7 @@ export default function AxolotlCommandCenter() {
             <p className="mt-2 text-[10px] text-[#9FA8BF] tracking-widest uppercase flex flex-wrap items-center gap-2">
               <span>OR-TOOLS MULTI-LEVEL ROUTING & COLLISION AVOIDANCE</span>
               <span className="text-cyan font-bold bg-cyan/10 px-2.5 py-0.5 border border-cyan/40 rounded-none flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-                <span>⚡</span> CLICK INTERSECTION NODES FOR DEEP TELEMETRY
+                CLICK INTERSECTION NODES FOR DEEP TELEMETRY
               </span>
             </p>
           </div>
@@ -461,9 +461,9 @@ export default function AxolotlCommandCenter() {
               className="w-full glass-panel hover:border-cyan text-white py-4 px-6 text-xs tracking-widest uppercase transition-all text-left flex justify-between items-center group shadow-[0_10px_25px_rgba(0,0,0,0.6)]"
             >
               <span className="group-hover:text-cyan transition-colors font-bold flex items-center gap-2">
-                <span>⚡</span> LOAD NEXT SCENARIO
+                LOAD NEXT SCENARIO
               </span>
-              <span className="text-lg leading-none group-hover:translate-x-1 transition-transform text-cyan">⏭</span>
+              <span className="text-xs font-bold leading-none group-hover:translate-x-1 transition-transform text-cyan">&gt;&gt;</span>
             </motion.button>
 
             {/* 3. MILITARY HUD TELEMETRY SIDEBAR */}
@@ -518,7 +518,7 @@ export default function AxolotlCommandCenter() {
                     : 'bg-crimson text-black hover:bg-white shadow-[0_0_25px_rgba(255,51,102,0.8)] scale-100 hover:scale-102 animate-pulse'
                 }`}
               >
-                {approved ? '✓ REROUTE APPROVED' : hasCriticalAlert ? `⚡ APPROVE REROUTE (${countdown}s)` : 'SYSTEM NOMINAL'}
+                {approved ? 'REROUTE APPROVED' : hasCriticalAlert ? `APPROVE REROUTE (${countdown}s)` : 'SYSTEM NOMINAL'}
               </button>
             </motion.div>
 
@@ -614,8 +614,8 @@ export default function AxolotlCommandCenter() {
             className="fixed bottom-4 left-4 right-4 md:left-8 md:right-8 glass-panel hud-corner border-2 border-cyan p-4 px-6 md:px-8 shadow-[0_0_40px_rgba(0,240,255,0.35)] z-50 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
           >
             <div className="flex items-center gap-5">
-              <div className="flex h-12 w-12 items-center justify-center bg-cyan/15 border border-cyan text-cyan font-bold text-xl shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                🚅
+              <div className="flex h-12 w-12 items-center justify-center bg-cyan/15 border border-cyan text-cyan font-bold text-xs shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                LOC
               </div>
               <div>
                 <div className="flex items-center gap-3">
@@ -647,7 +647,7 @@ export default function AxolotlCommandCenter() {
                 onClick={() => setSelectedTrain(null)}
                 className="px-3.5 py-1.5 bg-[#0A0D14] hover:bg-cyan hover:text-black border border-cyan/30 text-white text-[10px] font-bold uppercase tracking-widest transition-colors"
               >
-                CLOSE ✕
+                CLOSE [X]
               </button>
             </div>
           </motion.div>
