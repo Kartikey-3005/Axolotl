@@ -267,14 +267,6 @@ export default function AxolotlCommandCenter() {
               </span>
             </p>
           </div>
-
-          <div className="flex items-center gap-3">
-            <div className="glass-panel px-3 py-1.5 text-xs flex items-center gap-2 border border-cyan/30 text-[11px]">
-              <span className="w-2 h-2 rounded-full bg-cyan shadow-[0_0_8px_#00F0FF]"></span>
-              <span className="text-[#9FA8BF]">FASTAPI SIM:</span>
-              <span className="text-cyan font-bold tracking-wider">ACTIVE</span>
-            </div>
-          </div>
         </motion.div>
 
         {/* Main Grid: Floating 3D Map (Left) & Telemetry HUD (Right) */}
