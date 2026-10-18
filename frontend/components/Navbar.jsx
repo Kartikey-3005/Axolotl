@@ -11,6 +11,7 @@ export default function Navbar() {
     { href: '/dashboard', label: 'MAIN NETWORK MAP' },
     { href: '/stations', label: 'STATIONS' },
     { href: '/alerts', label: 'ALERTS CONSOLE' },
+    { href: '/live-tracker', label: 'LIVE TRACKER' },
   ];
 
   return (
@@ -18,9 +19,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-9 h-9 bg-void border border-cyan flex items-center justify-center font-bold text-cyan text-xl rounded-none shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all group-hover:shadow-[0_0_25px_rgba(0,240,255,0.8)] group-hover:scale-105">
-            <span className="relative z-10">A</span>
-            <div className="absolute inset-0 bg-cyan/10"></div>
+          <div className="relative w-9 h-9 border border-cyan/60 overflow-hidden bg-void flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all group-hover:shadow-[0_0_25px_rgba(0,240,255,0.8)] group-hover:scale-105">
+            <img
+              src="/logo.jpg"
+              alt="Axolotl Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <span className="font-extrabold text-lg tracking-widest text-white group-hover:text-cyan transition-colors flex items-center gap-1.5">
