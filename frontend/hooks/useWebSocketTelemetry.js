@@ -2,7 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-export function useWebSocketTelemetry(wsUrl = 'ws://localhost:8000/ws/api/v1/trains/live') {
+export function useWebSocketTelemetry(customWsUrl) {
+  const defaultWs = (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_WS_URL)
+    ? process.env.NEXT_PUBLIC_WS_URL.replace(/\/ws\/stream$/, '/ws/api/v1/trains/live')
+    : 'ws://localhost:8000/ws/api/v1/trains/live';
+  const wsUrl = customWsUrl || defaultWs;
+
   const [telemetryData, setTelemetryData] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const wsRef = useRef(null);
