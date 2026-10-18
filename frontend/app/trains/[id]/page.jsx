@@ -1,41 +1,55 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import Speedometer from '../../../components/Speedometer';
 import { useWebSocketTelemetry } from '../../../hooks/useWebSocketTelemetry';
 
 export default function TrainTelemetryPage({ params }) {
-  const trainId = params?.id || 'TR-801';
+  const unwrappedParams = params ? use(params) : {};
+  const trainId = unwrappedParams?.id || 'TR-801';
   const { telemetryData } = useWebSocketTelemetry();
   const [routeData, setRouteData] = useState(null);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  const DEFAULT_ROUTE_DATA = {
+    train_id: trainId,
+    locomotive_model: "Vande Bharat Express (Class 18)",
+    max_speed_limit: 160.0,
+    max_capacity: 1128,
+    max_weight: 3000.0,
+    current_weight: 2450.0,
+    passenger_count: 420,
+    current_speed: 112.5,
+    delay_delta_minutes: +3.5,
+    route_waypoints: [
+      { station_id: "NDLS", station_name: "New Delhi Central", eta: "10:00 AM", status: "COMPLETED" },
+      { station_id: "CNB", station_name: "Kanpur Central", eta: "02:15 PM", status: "IN_TRANSIT" },
+      { station_id: "PRYJ", station_name: "Prayagraj Junction", eta: "05:00 PM", status: "SCHEDULED" },
+      { station_id: "BSB", station_name: "Varanasi Junction", eta: "07:30 PM", status: "SCHEDULED" },
+    ]
+  };
+
   // Fetch static route data from FastAPI
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/trains/${trainId}/route`)
-      .then((res) => res.json())
-      .then((data) => setRouteData(data))
+    fetch(`${API_URL}/api/v1/trains/${trainId}/route`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (data && Array.isArray(data.route_waypoints)) {
+          setRouteData(data);
+        } else {
+          setRouteData({ ...DEFAULT_ROUTE_DATA, ...data, route_waypoints: data?.route_waypoints || DEFAULT_ROUTE_DATA.route_waypoints });
+        }
+      })
       .catch(() => {
-        // Fallback default mock if API is offline
-        setRouteData({
-          train_id: trainId,
-          locomotive_model: "Vande Bharat Express (Class 18)",
-          max_speed_limit: 160.0,
-          max_capacity: 1128,
-          max_weight: 3000.0,
-          current_weight: 2450.0,
-          passenger_count: 420,
-          current_speed: 112.5,
-          delay_delta_minutes: +3.5,
-          route_waypoints: [
-            { station_id: "NDLS", station_name: "New Delhi Central", eta: "10:00 AM", status: "COMPLETED" },
-            { station_id: "CNB", station_name: "Kanpur Central", eta: "02:15 PM", status: "IN_TRANSIT" },
-            { station_id: "PRYJ", station_name: "Prayagraj Junction", eta: "05:00 PM", status: "SCHEDULED" },
-            { station_id: "BSB", station_name: "Varanasi Junction", eta: "07:30 PM", status: "SCHEDULED" },
-          ]
-        });
+        // Fallback default mock if API is offline or returns 404
+        setRouteData(DEFAULT_ROUTE_DATA);
       });
-  }, [trainId]);
+  }, [trainId, API_URL]);
 
   // Find live dynamic telemetry stream matching this train_id
   const liveMatch = telemetryData.find((t) => t.train_id === trainId);
@@ -125,7 +139,7 @@ export default function TrainTelemetryPage({ params }) {
           </h3>
 
           <div className="relative pl-6 space-y-8 border-l-2 border-ocean-border my-4">
-            {routeData.route_waypoints.map((stn, idx) => {
+            {(routeData?.route_waypoints || []).map((stn, idx) => {
               const isDone = stn.status === 'COMPLETED';
               const isInTransit = stn.status === 'IN_TRANSIT';
 
