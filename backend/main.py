@@ -11,6 +11,10 @@ from pydantic import BaseModel, Field, ValidationError
 # Import your AI engine
 from ai_engine.optimizer import ConflictOptimizer
 
+# Import routers & websocket manager
+from app.routers import trains, stations, alerts
+from app.websocket_manager import manager as telemetry_manager
+
 # Initialize the FastAPI app ONCE
 app = FastAPI()
 
@@ -22,6 +26,27 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include API Routers
+app.include_router(trains.router)
+app.include_router(stations.router)
+app.include_router(alerts.router)
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(telemetry_manager.start_simulation_loop())
+
+@app.websocket("/ws/api/v1/trains/live")
+async def websocket_telemetry_endpoint(websocket: WebSocket):
+    await telemetry_manager.connect(websocket)
+    try:
+        while True:
+            # Keep connection open and receive any ping/messages from client
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        telemetry_manager.disconnect(websocket)
+    except Exception:
+        telemetry_manager.disconnect(websocket)
 
 # === PYDANTIC MODELS ===
 class TrainScenario(BaseModel):
